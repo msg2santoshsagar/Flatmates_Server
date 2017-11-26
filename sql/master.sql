@@ -1,0 +1,1 @@
+CREATE SCHEMA `flatmates` DEFAULT CHARACTER SET utf8 ;
