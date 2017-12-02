@@ -1,4 +1,4 @@
-package com.alife.flatmates.FlatmatesServer;
+package com.alife.flatmates.server;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

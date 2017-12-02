@@ -1,4 +1,4 @@
-package com.alife.flatmates.FlatmatesServer.util;
+package com.alife.flatmates.server.util;
 
 import java.util.Date;
 
@@ -7,7 +7,7 @@ import java.util.Date;
  * 
  * @author  santosh sagar
  * @version 0.0.1
- * @since   26 Dec 2017
+ * @since   26 Nov 2017
  *
  */
 public class DateUtil {
@@ -21,6 +21,10 @@ public class DateUtil {
 	 */
 	public static Date getCurrentDate(){
 		return new Date();
+	}
+	
+	private DateUtil(){
+		// To not allow other to create object
 	}
 
 }

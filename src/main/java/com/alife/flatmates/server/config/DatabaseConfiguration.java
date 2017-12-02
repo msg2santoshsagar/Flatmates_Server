@@ -1,4 +1,4 @@
-package com.alife.flatmates.FlatmatesServer.config;
+package com.alife.flatmates.server.config;
 
 import javax.sql.DataSource;
 

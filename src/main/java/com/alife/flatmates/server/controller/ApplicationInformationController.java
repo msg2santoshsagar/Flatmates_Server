@@ -1,9 +1,8 @@
-package com.alife.flatmates.FlatmatesServer.controller;
+package com.alife.flatmates.server.controller;
 
 
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.annotation.PostConstruct;
 
 import org.springframework.http.MediaType;
@@ -11,22 +10,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alife.flatmates.FlatmatesServer.domain.constants.ApplicationConstants;
-import com.alife.flatmates.FlatmatesServer.domain.constants.ApplicationDetailConstant;
-import com.alife.flatmates.FlatmatesServer.util.DateUtil;
+import com.alife.flatmates.server.domain.constants.ApplicationConstants;
+import com.alife.flatmates.server.domain.constants.ApplicationDetailConstant;
+import com.alife.flatmates.server.util.DateUtil;
 
 /**
  * A rest controller for providing application information detail.
  * 
  * @author   santosh sagar
  * @version  0.0.1
- * @since    26 Dec 2017
+ * @since    26 Nov 2017
  *
  */
 @RestController
 @RequestMapping(value="/api")
-public class ApplicationInformation {
-	
+public class ApplicationInformationController {
+
 	private Map<String, String> applicationInformationMap;
 	
 	/**
@@ -36,12 +35,13 @@ public class ApplicationInformation {
 	@PostConstruct
 	private void init(){
 		applicationInformationMap = new HashMap<>();
-		applicationInformationMap.put(ApplicationConstants.KEY_APPLICATION_NAME, 			ApplicationDetailConstant.applicationName);
-		applicationInformationMap.put(ApplicationConstants.KEY_APPLICATION_VERSION, 		ApplicationDetailConstant.applicationVersion);
-		applicationInformationMap.put(ApplicationConstants.KEY_APPLICATION_RELEASE_DATE, 	ApplicationDetailConstant.applicationReleaseDate);
+		applicationInformationMap.put(ApplicationConstants.KEY_APPLICATION_NAME, 			ApplicationDetailConstant.APPLICATION_NAME);
+		applicationInformationMap.put(ApplicationConstants.KEY_APPLICATION_VERSION, 		ApplicationDetailConstant.APPLICATION_VERSION);
+		applicationInformationMap.put(ApplicationConstants.KEY_APPLICATION_SUB_VERISON, 	ApplicationDetailConstant.APPLICATION_SUB_VERSION);
+		applicationInformationMap.put(ApplicationConstants.KEY_APPLICATION_RELEASE_DATE, 	ApplicationDetailConstant.APPLICATION_RELEASE_DATE);
 		applicationInformationMap.put(ApplicationConstants.KEY_APPLICATION_UP_TIME, 		DateUtil.getCurrentDate().toString());
 	}
-	
+
 	/**
 	 * Get  : /ping : to get application information detail
 	 * Post : /ping : to get application information detail
@@ -50,7 +50,7 @@ public class ApplicationInformation {
 	 */
 	@RequestMapping(value="/ping",method={RequestMethod.GET,RequestMethod.POST},produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public Map<String, String> ping(){
-		return applicationInformationMap;
+			return applicationInformationMap;
 	}
 
 }
