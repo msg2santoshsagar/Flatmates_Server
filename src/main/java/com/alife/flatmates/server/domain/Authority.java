@@ -27,8 +27,9 @@ public class Authority implements Serializable {
         return name;
     }
 
-    public void setName(String name) {
+    public Authority setName(String name) {
         this.name = name;
+        return this;
     }
 
     @Override

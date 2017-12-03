@@ -20,5 +20,11 @@ public class UserService {
 	public Optional<User> findOneByLogin(String login){
 		return userRepository.findOneByLogin(login);
 	}
+	
+	@Transactional(readOnly=true)
+	public User findUserObjectWithId(String login){
+		Long userId =  userRepository.findOneUserIdByLogin(login);
+		return new User().setId(userId);
+	}
 
 }

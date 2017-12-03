@@ -3,13 +3,17 @@ package com.alife.flatmates.server.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A Group.
@@ -33,6 +37,10 @@ public class Group extends AbstractAuditingEntity implements Serializable {
     @Column(nullable = false)
     private boolean active = true;
 
+
+    @OneToMany(mappedBy="group",orphanRemoval=true,fetch=FetchType.EAGER)
+    private Set<GroupUser> groupUser = new HashSet<>();
+    
 
 	public Long getId() {
 		return id;
@@ -62,11 +70,19 @@ public class Group extends AbstractAuditingEntity implements Serializable {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
+	
+	public Set<GroupUser> getGroupUser() {
+		return groupUser;
+	}
+
+	public void setGroupUser(Set<GroupUser> groupUser) {
+		this.groupUser = groupUser;
+	}
 
 
 	@Override
 	public String toString() {
-		return "Group [id=" + id + ", name=" + name + ", active=" + active + "]";
+		return "Group [id=" + id + ", name=" + name + ", active=" + active + ", groupUser=" + groupUser + "]";
 	}
 
 }

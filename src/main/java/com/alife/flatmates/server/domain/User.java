@@ -70,6 +70,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @JsonIgnore
     private String activationKey;
 
+    @JsonIgnore
     @Size(max = 20)
     @Column(name = "reset_key", length = 20)
     private String resetKey;
@@ -90,8 +91,9 @@ public class User extends AbstractAuditingEntity implements Serializable {
         return id;
     }
 
-    public void setId(Long id) {
+    public User setId(Long id) {
         this.id = id;
+        return this;
     }
 
     public String getLogin() {

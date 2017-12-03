@@ -78,6 +78,18 @@
 			</plugin>
 		</plugins>
 	</build>
+	
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<logback.loglevel>DEBUG</logback.loglevel>
+			</properties>
+		</profile>
+	</profiles>
 
 
 </project>
