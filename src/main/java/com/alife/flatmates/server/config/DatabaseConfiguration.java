@@ -4,6 +4,8 @@ import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+
 import liquibase.integration.spring.SpringLiquibase;
 
 
@@ -17,6 +19,7 @@ import liquibase.integration.spring.SpringLiquibase;
  *
  */
 @Configuration
+@EnableJpaAuditing(auditorAwareRef="springSecurityAuditorAware")
 public class DatabaseConfiguration {
 
 	

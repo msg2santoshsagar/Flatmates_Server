@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.alife.flatmates.server.security.CustomAuthenticationEntryPoint;
 import com.alife.flatmates.server.security.CustomUserDetailService;
 
 
@@ -35,15 +36,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private CustomUserDetailService customUserDetailsService;
 	
-	/*@Autowired
-	private CustomAuthenticationEntryPoint  customAuthenticationEntryPoint;*/
-
-	/*@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication().
-		withUser("test").password("test").roles("ADMIN");
-	}*/
-
+	@Autowired
+	private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+	
 	@PostConstruct
 	public void init() {
 		try {
@@ -72,14 +67,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.permitAll()
 		.and()
 		.authorizeRequests()
-		.antMatchers("/api/ping").hasAnyAuthority("ROLE_ADMIN");
+		.antMatchers("/api/ping").permitAll()
+		.antMatchers("/api/group/**").authenticated();
 		
-		//http.csrf().disable(); // To accept basic authentication.
-		//http.cors().disable(); // To make it available for all the website. 
+		http.csrf().disable();
+		http.httpBasic().authenticationEntryPoint(customAuthenticationEntryPoint);
 		
-		//http.httpBasic().authenticationEntryPoint(customAuthenticationEntryPoint);
-
-
 	}
 
 
