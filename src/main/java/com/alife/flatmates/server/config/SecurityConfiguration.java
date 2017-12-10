@@ -1,7 +1,6 @@
 package com.alife.flatmates.server.config;
 
 import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.BeanInitializationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -13,8 +12,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
+import com.alife.flatmates.server.security.AlwaysSendUnauthorized401AuthenticationEntryPoint;
 import com.alife.flatmates.server.security.CustomAuthenticationEntryPoint;
+import com.alife.flatmates.server.security.CustomAuthenticationFailureHandler;
+import com.alife.flatmates.server.security.CustomAuthenticationSuccessHandler;
 import com.alife.flatmates.server.security.CustomUserDetailService;
 
 
@@ -39,6 +40,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
 	
+	@Autowired
+	private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+	
+	@Autowired
+	private CustomAuthenticationFailureHandler customAuthenticationFailureHandler; 
+	
+	
 	@PostConstruct
 	public void init() {
 		try {
@@ -54,12 +62,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	public PasswordEncoder passwordEncoder(){
 		return new BCryptPasswordEncoder();
 	}
+	
+	@Bean 
+	public AlwaysSendUnauthorized401AuthenticationEntryPoint entryPoint(){
+		return new AlwaysSendUnauthorized401AuthenticationEntryPoint();
+	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
 		http
+		.exceptionHandling().authenticationEntryPoint(entryPoint())
+		.and()
 		.formLogin()
+		.successHandler(customAuthenticationSuccessHandler)
+		.failureHandler(customAuthenticationFailureHandler)
 		.permitAll()
 		.and()
 		.logout()
@@ -68,10 +85,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.and()
 		.authorizeRequests()
 		.antMatchers("/api/ping").permitAll()
-		.antMatchers("/api/group/**").authenticated();
+		.antMatchers("/api/group/**").authenticated()
+		.antMatchers("/api/fcm/**").authenticated();
 		
-		http.csrf().disable();
+		http.csrf().disable()/*.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())*/;
 		http.httpBasic().authenticationEntryPoint(customAuthenticationEntryPoint);
+		http.cors();
 		
 	}
 

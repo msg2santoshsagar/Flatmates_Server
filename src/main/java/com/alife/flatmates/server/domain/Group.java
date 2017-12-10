@@ -47,8 +47,9 @@ public class Group extends AbstractAuditingEntity implements Serializable {
 	}
 
 
-	public void setId(Long id) {
+	public Group setId(Long id) {
 		this.id = id;
+		return this;
 	}
 
 
@@ -58,6 +59,9 @@ public class Group extends AbstractAuditingEntity implements Serializable {
 
 
 	public void setName(String name) {
+		if(name != null){
+			name = name.trim();
+		}
 		this.name = name;
 	}
 

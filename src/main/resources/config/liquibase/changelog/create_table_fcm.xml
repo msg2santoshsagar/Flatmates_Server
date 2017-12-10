@@ -8,7 +8,7 @@
 
 	<changeSet id="1" author="santosh sagar">
 
-		<createTable tableName="group_user">
+		<createTable tableName="fcm">
 
 			<column name="id" type="bigint" autoIncrement="${autoIncrement}">
 				<constraints primaryKey="true" nullable="false" />
@@ -18,11 +18,27 @@
 				<constraints unique="false" nullable="false" />
 			</column>
 
-			<column name="group_id" type="bigint">
+			<column name="device_type" type="varchar(7)">
 				<constraints unique="false" nullable="false" />
 			</column>
-
-			<column name="user_role" type="varchar(50)">
+			
+			<column name="device_manufacturer" type="varchar(25)">
+				<constraints unique="false" nullable="false" />
+			</column>
+			
+			<column name="device_model" type="varchar(25)">
+				<constraints unique="false" nullable="false" />
+			</column>
+			
+			<column name="device_version" type="varchar(25)">
+				<constraints unique="false" nullable="false" />
+			</column>
+			
+			<column name="device_version_release" type="varchar(25)">
+				<constraints unique="false" nullable="false" />
+			</column>
+			
+			<column name="fcm_token" type="varchar(255)">
 				<constraints unique="false" nullable="false" />
 			</column>
 
@@ -30,13 +46,6 @@
 				<constraints nullable="false" />
 			</column>
 
-			<column name="start_date" type="timestamp">
-				<constraints nullable="false" />
-			</column>
-
-			<column name="end_date" type="timestamp">
-				<constraints nullable="true" />
-			</column>
 
 			<column name="created_by" type="varchar(50)">
 				<constraints nullable="false" />
@@ -48,24 +57,11 @@
 
 			<column name="last_modified_by" type="varchar(50)" />
 
-			<column name="last_modified_date" type="timestamp" defaultValue="null">
+			<column name="last_modified_date" type="timestamp" defaultValueDate="null">
 				<constraints nullable="true" />
 			</column>
 
 		</createTable>
-		
-		
-		 <addForeignKeyConstraint baseColumnNames="user_id"
-                                 baseTableName="group_user"
-                                 constraintName="fk_group_user_user_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="user"/>
-
-        <addForeignKeyConstraint baseColumnNames="group_id"
-                                 baseTableName="group_user"
-                                 constraintName="fk_group_user_ft_group_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="ft_group"/>
 
 
 	</changeSet>

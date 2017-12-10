@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alife.flatmates.server.domain.BasicInputParam;
 import com.alife.flatmates.server.domain.Group;
 import com.alife.flatmates.server.service.GroupService;
 
@@ -31,8 +32,13 @@ public class GroupController {
 	}
 
 	@PostMapping(value="/getGroupList",produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public List<Group> getGroupList(){
-		return groupService.findAll();
+	public List<Group> getGroupList(@RequestBody BasicInputParam param){
+		return groupService.findGroupListForUser(param);
+	}
+	
+	@PostMapping(value="/addUserToGroup",produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public boolean addUserToGroup(@RequestBody BasicInputParam param){
+		return groupService.addUserToGroup(param);
 	}
 
 

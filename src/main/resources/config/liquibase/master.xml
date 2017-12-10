@@ -6,5 +6,6 @@
 <include file="classpath:config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
 <include file="classpath:config/liquibase/changelog/create_table_ft_group.xml" relativeToChangelogFile="false"/>
 <include file="classpath:config/liquibase/changelog/create_table_ft_group_user.xml" relativeToChangelogFile="false"/>
+<include file="classpath:config/liquibase/changelog/create_table_fcm.xml" relativeToChangelogFile="false"/>
 
 </databaseChangeLog>

@@ -1,7 +1,6 @@
 package com.alife.flatmates.server.service;
 
 
-import java.util.HashSet;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -9,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alife.flatmates.server.domain.BasicInputParam;
 import com.alife.flatmates.server.domain.Group;
 import com.alife.flatmates.server.domain.GroupUser;
 import com.alife.flatmates.server.domain.User;
@@ -59,6 +59,32 @@ public class GroupService {
 
 		return groupRepository.findOne(group.getId());
 	}
+
+	@Transactional(readOnly=true)
+	public List<Group> findGroupListForUser(BasicInputParam param) {
+		String userName = param.getUserName();
+		System.out.println(" OWNER : "+userName);
+		User   user      = userService.findUserObjectWithId(userName);
+		
+		return groupRepository.findGroupListForUser( user );
+	}
+
+	public boolean addUserToGroup(BasicInputParam param) {
+		String userName = param.getUserName();
+		System.out.println(" USER NAME : "+userName);
+		User   user      = userService.findUserObjectWithId(userName);
+		
+		Group group = new Group().setId(param.getGroupId());
+		
+		GroupUser groupUser = new GroupUser();
+		groupUser.setUser(user).setGroup(group).setAuthority(AuthoritiesConstants.GROUP_USER);
+
+		groupUser = groupUserService.save(groupUser);
+		
+		return true;
+	}
+	
+	
 
 
 
