@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -41,6 +42,8 @@ public class Group extends AbstractAuditingEntity implements Serializable {
     @OneToMany(mappedBy="group",orphanRemoval=true,fetch=FetchType.EAGER)
     private Set<GroupUser> groupUser = new HashSet<>();
     
+    @Transient
+    private String nameOfCreatedBy;
 
 	public Long getId() {
 		return id;
@@ -81,6 +84,16 @@ public class Group extends AbstractAuditingEntity implements Serializable {
 
 	public void setGroupUser(Set<GroupUser> groupUser) {
 		this.groupUser = groupUser;
+	}
+
+	public String getNameOfCreatedBy() {
+		return nameOfCreatedBy;
+	}
+
+
+	public Group setNameOfCreatedBy(String nameOfCreatedBy) {
+		this.nameOfCreatedBy = nameOfCreatedBy;
+		return this;
 	}
 
 

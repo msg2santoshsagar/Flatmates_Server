@@ -32,8 +32,8 @@ public class GroupController {
 	}
 
 	@PostMapping(value="/getGroupList",produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public List<Group> getGroupList(@RequestBody BasicInputParam param){
-		return groupService.findGroupListForUser(param);
+	public List<Group> getGroupList(){
+		return groupService.findGroupListForLoggedInUser();
 	}
 	
 	@PostMapping(value="/addUserToGroup",produces=MediaType.APPLICATION_JSON_UTF8_VALUE)

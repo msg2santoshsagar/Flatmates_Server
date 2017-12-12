@@ -23,59 +23,59 @@ import javax.persistence.MappedSuperclass;
 @EntityListeners(AuditingEntityListener.class)
 public abstract class AbstractAuditingEntity implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @CreatedBy
-    @Column(name = "created_by", nullable = false, length = 50, updatable = false)
-    @JsonIgnore
-    private String createdBy;
+	@CreatedBy
+	@Column(name = "created_by", nullable = false, length = 50, updatable = false)
+	//    @JsonIgnore
+	private String createdBy;
 
-    @CreatedDate
-    @Column(name = "created_date", nullable = false, updatable = false)
-    @JsonIgnore
-    private Date createdDate = new Date();
+	@CreatedDate
+	@Column(name = "created_date", nullable = false, updatable = false)
+	//  @JsonIgnore
+	private Date createdDate = new Date();
 
-    @LastModifiedBy
-    @Column(name = "last_modified_by", length = 50)
-    @JsonIgnore
-    private String lastModifiedBy;
+	@LastModifiedBy
+	@Column(name = "last_modified_by", length = 50)
+	@JsonIgnore
+	private String lastModifiedBy;
 
-    @LastModifiedDate
-    @Column(name = "last_modified_date")
-    @JsonIgnore
-    private Date lastModifiedDate = new Date();
+	@LastModifiedDate
+	@Column(name = "last_modified_date")
+	@JsonIgnore
+	private Date lastModifiedDate = new Date();
 
-    public String getCreatedBy() {
-        return createdBy;
-    }
+	public String getCreatedBy() {
+		return createdBy;
+	}
 
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
 
-    public Date getCreatedDate() {
-        return createdDate;
-    }
+	public Date getCreatedDate() {
+		return createdDate;
+	}
 
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
 
-    public String getLastModifiedBy() {
-        return lastModifiedBy;
-    }
+	public String getLastModifiedBy() {
+		return lastModifiedBy;
+	}
 
-    public void setLastModifiedBy(String lastModifiedBy) {
-        this.lastModifiedBy = lastModifiedBy;
-    }
+	public void setLastModifiedBy(String lastModifiedBy) {
+		this.lastModifiedBy = lastModifiedBy;
+	}
 
-    public Date getLastModifiedDate() {
-        return lastModifiedDate;
-    }
+	public Date getLastModifiedDate() {
+		return lastModifiedDate;
+	}
 
-    public void setLastModifiedDate(Date lastModifiedDate) {
-        this.lastModifiedDate = lastModifiedDate;
-    }
+	public void setLastModifiedDate(Date lastModifiedDate) {
+		this.lastModifiedDate = lastModifiedDate;
+	}
 
 	@Override
 	public int hashCode() {
@@ -125,6 +125,6 @@ public abstract class AbstractAuditingEntity implements Serializable {
 		return "AbstractAuditingEntity [createdBy=" + createdBy + ", createdDate=" + createdDate + ", lastModifiedBy="
 				+ lastModifiedBy + ", lastModifiedDate=" + lastModifiedDate + "]";
 	}
-    
-    
+
+
 }

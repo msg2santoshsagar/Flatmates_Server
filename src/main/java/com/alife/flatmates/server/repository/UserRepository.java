@@ -19,4 +19,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	@Query("Select u.id from User u where u.login = :login  ")
 	Long findOneUserIdByLogin(@Param("login") String login);
 
+	@Query("Select u.id from User u where UPPER(u.email) = UPPER(:email)  ")
+	Long findOneUserIdByEmail(@Param("email") String email);
+
+	@Query("Select new com.alife.flatmates.server.domain.User(u.id, u.login, u.firstName, u.lastName, u.email, u.activated) "
+			+ "from User u where u.login = :login  ")
+	User findOneBasicDetailByLogin(@Param("login") String login);
+
 }

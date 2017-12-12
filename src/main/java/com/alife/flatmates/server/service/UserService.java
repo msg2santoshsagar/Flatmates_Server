@@ -26,5 +26,20 @@ public class UserService {
 		Long userId =  userRepository.findOneUserIdByLogin(login);
 		return new User().setId(userId);
 	}
+	
+	@Transactional(readOnly=true)
+	public User findOneBasicDetailByLogin(String login){
+		return userRepository.findOneBasicDetailByLogin(login);
+	}
+	
+	@Transactional(readOnly=true)
+	public User findUserObjectByEmailWithId(String email){
+		Long userId =  userRepository.findOneUserIdByEmail(email);
+		return new User().setId(userId);
+	}
+
+	public User save(User user) {
+		return userRepository.save(user);
+	}
 
 }

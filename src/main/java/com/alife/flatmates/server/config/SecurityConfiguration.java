@@ -84,9 +84,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.permitAll()
 		.and()
 		.authorizeRequests()
+		.antMatchers("/api/register").permitAll()
 		.antMatchers("/api/ping").permitAll()
 		.antMatchers("/api/group/**").authenticated()
-		.antMatchers("/api/fcm/**").authenticated();
+		.antMatchers("/api/fcm/**").authenticated()
+		.antMatchers("/auth").authenticated();
 		
 		http.csrf().disable()/*.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())*/;
 		http.httpBasic().authenticationEntryPoint(customAuthenticationEntryPoint);

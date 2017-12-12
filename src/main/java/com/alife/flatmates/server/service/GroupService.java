@@ -54,37 +54,61 @@ public class GroupService {
 		groupUser.setUser(user).setGroup(group).setAuthority(AuthoritiesConstants.GROUP_ADMIN);
 
 		groupUser = groupUserService.save(groupUser);
-		
+
 		group.getGroupUser().add(groupUser);
 
-		return groupRepository.findOne(group.getId());
+		return setCreatedByName(groupRepository.findOne(group.getId()));
 	}
 
+
 	@Transactional(readOnly=true)
-	public List<Group> findGroupListForUser(BasicInputParam param) {
-		String userName = param.getUserName();
+	public List<Group> findGroupListForLoggedInUser() {
+		String userName = SecurityUtils.getCurrentUserLogin();
 		System.out.println(" OWNER : "+userName);
 		User   user      = userService.findUserObjectWithId(userName);
-		
-		return groupRepository.findGroupListForUser( user );
+
+		List<Group> groupList =  groupRepository.findGroupListForUser( user );
+		return setCreatedByName(groupList);
+	}
+
+	private Group setCreatedByName(Group group) {
+		if( group == null ){
+			return null;
+		}
+
+		User user	   = userService.findOneBasicDetailByLogin(group.getCreatedBy());
+		String fName  = ( user.getFirstName() == null ? "" : user.getFirstName() );
+		return  group.setNameOfCreatedBy(fName.trim());
+
+	}
+
+	private List<Group> setCreatedByName(List<Group> groupList) {
+
+		for(Group group : groupList){
+			User user	   = userService.findOneBasicDetailByLogin(group.getCreatedBy());
+			String fName  = ( user.getFirstName() == null ? "" : user.getFirstName() );
+			group.setNameOfCreatedBy(fName.trim());
+		}
+
+		return groupList;
 	}
 
 	public boolean addUserToGroup(BasicInputParam param) {
 		String userName = param.getUserName();
 		System.out.println(" USER NAME : "+userName);
 		User   user      = userService.findUserObjectWithId(userName);
-		
+
 		Group group = new Group().setId(param.getGroupId());
-		
+
 		GroupUser groupUser = new GroupUser();
 		groupUser.setUser(user).setGroup(group).setAuthority(AuthoritiesConstants.GROUP_USER);
 
 		groupUser = groupUserService.save(groupUser);
-		
+
 		return true;
 	}
-	
-	
+
+
 
 
 
