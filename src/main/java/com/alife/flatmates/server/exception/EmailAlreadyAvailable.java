@@ -1,4 +1,4 @@
-package com.alife.flatmates.exception;
+package com.alife.flatmates.server.exception;
 
 public class EmailAlreadyAvailable extends Exception {
 

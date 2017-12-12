@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alife.flatmates.exception.EmailAlreadyAvailable;
-import com.alife.flatmates.exception.UserNameAlreadyAvailable;
+import com.alife.flatmates.server.exception.EmailAlreadyAvailable;
+import com.alife.flatmates.server.exception.UserNameAlreadyAvailable;
 import com.alife.flatmates.server.domain.ManagedUser;
 import com.alife.flatmates.server.domain.User;
 import com.alife.flatmates.server.security.SecurityUtils;
